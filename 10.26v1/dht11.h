@@ -5,12 +5,12 @@
 #include <stdlib.h>
 #include <stdint.h>
 typedef struct data{
-	int temperature;
-	int humidity;
+	unsigned char temperature;
+	unsigned char humidity;
 	data(int t,int h)
 	{
-		temperature=t;
-		humidity=h;	
+		temperature=(unsigned char)t;
+		humidity=(unsigned char)h;	
 	}
 }data;
 

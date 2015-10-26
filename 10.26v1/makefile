@@ -5,4 +5,4 @@ epollClientv1.o:epollClientv1.cpp dht11.h
 dht11.o:dht11.c dht11.h
 		g++ -c dht11.c -lwiringPi 
 clean:
-		rm *.o
+	rm *.o
