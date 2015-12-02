@@ -75,12 +75,13 @@ int setnonblocking(int sockfd)
 int initSrvSocket(int port)
 {
    struct sockaddr_in srvAddr;
-   bzero( &srvAddr, sizeof( srvAddr ) );
-   srvAddr.sin_family = AF_INET;
-   srvAddr.sin_addr.s_addr = htonl(INADDR_ANY);
-   srvAddr.sin_port = htons (port);
+   bzero( &srvAddr, sizeof( srvAddr ) );          //置字节字符串前n个字节为零且包括‘\0’, 推荐使用memset代替bzero
+   srvAddr.sin_family = AF_INET;                  //TCP/IP协议族
+   srvAddr.sin_addr.s_addr = htonl(INADDR_ANY);   //协议地址
+   srvAddr.sin_port = htons (port);               //将主机数转换成无符号长整型的网络字节顺序
 
-   srvfd = socket( AF_INET, SOCK_STREAM, 0 );
+   srvfd = socket( AF_INET, SOCK_STREAM, 0 );     
+   //SOCK_STREAM 提供有序的、可靠的、双向的和基于连接的字节流，使用带外数据传送机制，为Internet地址族使用TCP。
    if ( srvfd == -1 )
    {
        printf( "can't create socket file" );
