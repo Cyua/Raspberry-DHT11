@@ -44,10 +44,15 @@ int main(int argc, char const *argv[])
 		cout<<"***********        ************"<<endl;
 		cout<<"Hint: "<<endl;
 		cout<<"add an new account:  ./account -a username password"<<endl;
-		cout<<"delete an account: ./account -d username"<<endl;
-		cout<<"check the password: ./account -c username password"<<endl;
+		cout<<"delete an account:   ./account -d username"<<endl;
+		cout<<"check the password:  ./account -c username password"<<endl;
 		cout<<"modify the password: ./account -m username password"<<endl;
+		cout<<"list all the users:  ./account -l"<<endl;
 		cout<<"***********        ************"<<endl;
+	}
+
+	else if(command == "-l"){	//list all the username
+		manager.listAllUser();
 	}
 
 	else if(command == "-d"){	//delete the account

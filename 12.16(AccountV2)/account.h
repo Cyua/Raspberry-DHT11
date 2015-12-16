@@ -17,7 +17,7 @@ public:
 	bool drop(string id);					//delete an account
 	bool check(string id, string passwd);	//check if the password fits the account
 	bool modify(string id, string passwd);	//modify an account, passwd: the new account password
-
+	void listAllUser();						//list all the username
 	//The following function is for account class itself
 	bool loadRoot(string fileName="", string filePath="");	//Load the password of root
 	bool readFile(string fileName="", string filePath="");	//Load the account list

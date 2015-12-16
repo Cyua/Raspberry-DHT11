@@ -89,7 +89,6 @@ bool Account::writeFile(){
 		return false;
 	}
 	map<string,string>::iterator it;
-	int i = 0;
 	for(it = accountList.begin(); it!=accountList.end(); ++it){
 		string id = encode(it->first.c_str(), it->first.size());
 		string passwd = encode(it->second.c_str(),it->second.size());
@@ -100,7 +99,8 @@ bool Account::writeFile(){
 }
 
 string Account::encode(const char* src, int size){
-	char temp[size];
+	char* temp = new char[size];
+	memset(temp, 0, sizeof(char)*size);
 	for(int i = 0; i < size; i++){
 		char x;
 		if(src[i]>='a' && src[i]<='z'){
@@ -168,5 +168,12 @@ void Account::split(string s, string delim,vector<string>& ret)
 	if (index-last>0)
 	{
 		ret.push_back(s.substr(last,index-last));
+	}
+}
+
+void Account::listAllUser(){
+	map<string,string>::iterator it;
+	for(it = accountList.begin(); it!=accountList.end(); ++it){
+		cout<<it->first<<endl;
 	}
 }
