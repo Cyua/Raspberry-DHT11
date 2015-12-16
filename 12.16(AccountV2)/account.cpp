@@ -63,7 +63,8 @@ bool Account::readFile(string file, string filePath){
 	fileName = filePath + file;
 	ifstream fin(fileName);
 	if(!fin.is_open()){
-		cout<<"The file "<<fileName<<" does not exist!"<<endl;
+		// cout<<"The file "<<fileName<<" does not exist!"<<endl;
+		fin.close();
 		return false;
 	}
 	vector<string> data;
@@ -74,7 +75,7 @@ bool Account::readFile(string file, string filePath){
 			break;
 		split(raw, " ", data);
 		string id = decode(data[0].c_str(), data[0].size());
-		string passwd = decode(data[1].c_str(), data[0].size());
+		string passwd = decode(data[1].c_str(), data[1].size());
 		accountList[id]=passwd;
 	}	
 	fin.close();
@@ -88,10 +89,10 @@ bool Account::writeFile(){
 		return false;
 	}
 	map<string,string>::iterator it;
-	for(it = accountList.begin(); it!=accountList.end(); it++){
+	int i = 0;
+	for(it = accountList.begin(); it!=accountList.end(); ++it){
 		string id = encode(it->first.c_str(), it->first.size());
-		string passwd = encode(it->second.c_str(),it->first.size());
-		cout<<id<<" "<<passwd<<endl;
+		string passwd = encode(it->second.c_str(),it->second.size());
 		fout<<id<<" "<<passwd<<endl;
 	}
 	fout.close();
@@ -106,19 +107,16 @@ string Account::encode(const char* src, int size){
 			int d = (src[i]-'a'+3) % 26;
 			x = 'a'+d;
 			temp[i] = x;
-			continue;
 		}
 		else if(src[i]>='A' && src[i]<='Z'){
 			int d = (src[i]-'A'+4) % 26;
 			x = 'A'+d;
 			temp[i] = x;
-			continue;
 		}
 		else if(src[i]>='1' && src[i]<='9'){
 			int d = (src[i]-'1'+5) % 10;
 			x = '1'+d;
 			temp[i] = x;
-			continue;
 		}
 		else
 			temp[i] = src[i];
@@ -128,7 +126,8 @@ string Account::encode(const char* src, int size){
 }
 
 string Account::decode(const char* src, int size){
-	char temp[size];
+	char* temp = new char[size];
+	memset(temp,0,sizeof(char)*size);
 	for(int i = 0; i < size; i++){
 		char x;
 		if(src[i]>='a' && src[i]<='z'){
