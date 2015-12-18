@@ -53,6 +53,7 @@ int main(int argc, char const *argv[])
 
 	else if(command == "-l"){	//list all the username
 		manager.listAllUser();
+		return 0;
 	}
 
 	else if(command == "-d"){	//delete the account

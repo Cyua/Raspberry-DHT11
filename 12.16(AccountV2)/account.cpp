@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <fstream>
+#include <cstdlib>
+#include <cstring>
 #include <map>
 using namespace std;
 
@@ -47,7 +49,7 @@ bool Account::modify(string id, string passwd){
 }
 
 bool Account::loadRoot(string fileName, string filePath){
-	ifstream fin(fileName);
+	ifstream fin(fileName.c_str());
 	if(!fin.is_open()){
 		cout<<"The file "<<fileName<<" does not exist!"<<endl;
 		return false;
@@ -61,7 +63,7 @@ bool Account::loadRoot(string fileName, string filePath){
 
 bool Account::readFile(string file, string filePath){
 	fileName = filePath + file;
-	ifstream fin(fileName);
+	ifstream fin(fileName.c_str());
 	if(!fin.is_open()){
 		// cout<<"The file "<<fileName<<" does not exist!"<<endl;
 		fin.close();
@@ -83,7 +85,7 @@ bool Account::readFile(string file, string filePath){
 }
 
 bool Account::writeFile(){
-	ofstream fout(fileName);
+	ofstream fout(fileName.c_str());
 	if(!fout.is_open()){
 		cout<<"Can't open the file: "<<fileName<<" !"<<endl;
 		return false;
@@ -99,8 +101,9 @@ bool Account::writeFile(){
 }
 
 string Account::encode(const char* src, int size){
-	char* temp = new char[size];
-	memset(temp, 0, sizeof(char)*size);
+	char* temp = new char[size+1];
+	memset(temp, 0, sizeof(char)*(size+1));
+	
 	for(int i = 0; i < size; i++){
 		char x;
 		if(src[i]>='a' && src[i]<='z'){
@@ -120,14 +123,16 @@ string Account::encode(const char* src, int size){
 		}
 		else
 			temp[i] = src[i];
+
 	}
 	string s(temp);
+	delete[] temp;
 	return s;
 }
 
 string Account::decode(const char* src, int size){
-	char* temp = new char[size];
-	memset(temp,0,sizeof(char)*size);
+	char* temp = new char[size+1];
+	memset(temp,0,sizeof(char)*(size+1));
 	for(int i = 0; i < size; i++){
 		char x;
 		if(src[i]>='a' && src[i]<='z'){
@@ -152,6 +157,7 @@ string Account::decode(const char* src, int size){
 			temp[i] = src[i];
 	}
 	string s(temp);
+	delete[] temp;
 	return s;
 }
 void Account::split(string s, string delim,vector<string>& ret)
