@@ -21,8 +21,7 @@ int main(int argc, char const *argv[])
 
 	string command(argv[1]);
 	Account manager;
-	manager.loadRoot("root");			//load the root file
-	manager.readFile("accountList");	//load the account file
+	
 
 	if(command == "-a"){				//add the account
 		if(argc != 4){
@@ -101,6 +100,15 @@ int main(int argc, char const *argv[])
 		else{
 			cout<<"Can't find the account"<<endl;
 		}
+	}
+	else{
+		cout<<"command not found!"<<endl;
+		cout<<"Hint: "<<endl;
+		cout<<"add an new account:  ./account -a username password"<<endl;
+		cout<<"delete an account:   ./account -d username"<<endl;
+		cout<<"check the password:  ./account -c username password"<<endl;
+		cout<<"modify the password: ./account -m username password"<<endl;
+		cout<<"list all the users:  ./account -l"<<endl;
 	}
 	manager.writeFile();
 	return 0;

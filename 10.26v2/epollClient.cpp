@@ -317,7 +317,7 @@ void* SendToSrv(void *arg)
 				}  
 				EpollHandle();
 				close(connfd);
-				sem_destroy(&sem);
+				// sem_destroy(&sem);
 				//pthread_mutex_destroy(&mutex);
 				printf("exit\n");
 				exit(0);

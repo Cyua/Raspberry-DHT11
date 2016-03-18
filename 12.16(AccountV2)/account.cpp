@@ -12,6 +12,8 @@ Account::Account(){
 	accountList.clear();
 	fileName="";
 	filePath="";
+	loadRoot("root");			//load the root file
+	readFile("accountList");	//load the account file
 }
 
 Account::~Account(){

@@ -232,23 +232,23 @@ int ConnectToSrv(char* servInetAddr, int servPort)
 void* SendToSrv(void *arg)
 {
 	while(true){
-				// char sendline[MAXBUFSIZE] = "";
-				// ASD_GENERAL_MESSAGE dht11_data; 
-				// memset(&dht11_data,0,sizeof(dht11_data));
-				// DHT11 sensor;
-				// data get_data=sensor.dht11_read();
-				// memcpy(dht11_data.s, (unsigned char*)(&get_data), sizeof(get_data));
-				// int size = ASD_GENERAL_MESSAGE_HAND_LEN + sizeof(get_data);
-				// dht11_data.size = size;
-				// memcpy(sendline, (unsigned char*)(&dht11_data), size);
-				// int len = write(connfd, sendline, size);
-				// if (len > 0) {
-				// 	printf("SendData: %d - %s\n", len, sendline);
-				// } else if (len <= 0) {
-				// 	close(connfd);
-				// 	printf("SendData:[fd=%d] error[%d]\n", (int)connfd);
+				char sendline[MAXBUFSIZE] = "";
+				ASD_GENERAL_MESSAGE dht11_data; 
+				memset(&dht11_data,0,sizeof(dht11_data));
+				DHT11 sensor;
+				data get_data=sensor.dht11_read();
+				memcpy(dht11_data.s, (unsigned char*)(&get_data), sizeof(get_data));
+				int size = ASD_GENERAL_MESSAGE_HAND_LEN + sizeof(get_data);
+				dht11_data.size = size;
+				memcpy(sendline, (unsigned char*)(&dht11_data), size);
+				int len = write(connfd, sendline, size);
+				if (len > 0) {
+					printf("SendData: %d - %s\n", len, sendline);
+				} else if (len <= 0) {
+					close(connfd);
+					printf("SendData:[fd=%d] error[%d]\n", (int)connfd);
 
-				// }
+				}
 
 	}
 }
